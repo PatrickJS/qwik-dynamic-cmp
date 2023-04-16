@@ -8,29 +8,22 @@ interface ComponentOptions {
   type: string;
   props: any;
 }
-const componentsMap = new Map([
+const componentsMap = new Map<string, ComponentOptions>([
   ['ComponentA', { id: 1, type: 'ComponentA', props: { text: 'Hello A' } }],
   ['ComponentB', { id: 1, type: 'ComponentB', props: { text: 'Hello A' } }],
 ]);
 
 const componentTokens = Array.from(componentsMap.keys());
 
-// export const ComponentA = component$((props: { text: string }) => {
-//   return <h1>{props.text}</h1>;
-// });
-
-// export const ComponentB = component$((props: { text: string }) => {
-//   return <h1>{props.text}</h1>;
-// });
-
-function escapeRegex(string: string) {
-  return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
-}
 
 function chooseComponent(component: string) {
-  console.log('Components', Components);
+  // not sure how to type this
+  // Components is the map of all components
   const Component = Components[component];
-  return <Component />;
+  console.log('Component', Component)
+  const opt = componentsMap.get(component);
+  if (!Component || !opt) return null;
+  return <Component key={opt.id} {...opt.props}/>;
 }
 
 function parseText(inputText: string, tokens = componentTokens) {
@@ -48,7 +41,6 @@ function parseText(inputText: string, tokens = componentTokens) {
 
 export default component$(() => {
   const dsl = useSignal('');
-  const arr = useSignal<any[]>([]);
   const components = useSignal<any[]>([]);
 
   return (
@@ -66,7 +58,6 @@ export default component$(() => {
         cols={30}
       />
       <div>{dsl.value}</div>
-      <code>arr = {JSON.stringify(arr.value, null, 2)}</code>
       <code>components = {JSON.stringify(components.value, null, 2)}</code>
       <hr />
       <div>{components.value.map(chooseComponent)}</div>
