@@ -17,6 +17,13 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
+        {/* <script type="importmap">
+          {
+            "imports": {
+              "AppComponents/": "./components/"
+            }
+          }
+        </script> */}
         <RouterHead />
       </head>
       <body lang="en">

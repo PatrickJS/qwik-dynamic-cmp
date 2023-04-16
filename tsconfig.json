@@ -18,7 +18,8 @@
     "noEmit": true,
     "types": ["node", "vite/client"],
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "AppComponents/*": ["./src/components/*"],
     }
   },
   "files": ["./.eslintrc.cjs"],

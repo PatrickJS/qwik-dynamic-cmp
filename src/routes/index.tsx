@@ -1,8 +1,8 @@
 import { Component, component$, useSignal, $, JSXNode } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
-import * as Components from '../components/components';
-
+// import remote components from importmaps.json
+import * as Components from 'AppComponents/components';
 const componentTokens = Object.keys(Components);
 
 function chooseComponent(component: string) {
