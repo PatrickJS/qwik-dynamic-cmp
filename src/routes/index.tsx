@@ -10,7 +10,7 @@ interface ComponentOptions {
 }
 const componentsMap = new Map<string, ComponentOptions>([
   ['ComponentA', { id: 1, type: 'ComponentA', props: { text: 'Hello A' } }],
-  ['ComponentB', { id: 2, type: 'ComponentB', props: { text: 'Hello A' } }],
+  ['ComponentB', { id: 2, type: 'ComponentB', props: { text: 'Hello B' } }],
 ]);
 
 const componentTokens = Array.from(componentsMap.keys());
@@ -18,6 +18,8 @@ const componentTokens = Array.from(componentsMap.keys());
 function chooseComponent(component: string) {
   // not sure how to type this
   // Components is the map of all components
+  // dynamiclly load in each component when they're used
+  // this means you can increase the components export as much as you want
   const Component = Components[component];
   console.log('Component', Component);
   const opt = componentsMap.get(component);
@@ -45,6 +47,13 @@ export default component$(() => {
   return (
     <>
       <div>Hello World</div>
+      <div>Components Available</div>
+      <ul>
+        {componentTokens.map((cmp) => (
+          <li>{cmp}</li>
+        ))}
+      </ul>
+      <p>type in anything with the component name below</p>
       <textarea
         onInput$={(evt) => {
           const val = (evt?.target as HTMLTextAreaElement)?.value;
@@ -56,8 +65,9 @@ export default component$(() => {
         rows={2}
         cols={30}
       />
-      <div>{dsl.value}</div>
-      <code>components = {JSON.stringify(components.value, null, 2)}</code>
+      <div>
+        <code>components = {JSON.stringify(components.value, null, 2)}</code>
+      </div>
       <hr />
       <div>{components.value.map(chooseComponent)}</div>
     </>
