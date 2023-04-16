@@ -2,29 +2,19 @@ import { Component, component$, useSignal, $, JSXNode } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
 import * as Components from '../components/components';
-// TODO: better type info
-interface ComponentOptions {
-  id: number;
-  type: string;
-  props: any;
-}
-const componentsMap = new Map<string, ComponentOptions>([
-  ['ComponentA', { id: 1, type: 'ComponentA', props: { text: 'Hello A' } }],
-  ['ComponentB', { id: 2, type: 'ComponentB', props: { text: 'Hello B' } }],
-]);
 
-const componentTokens = Array.from(componentsMap.keys());
+const componentTokens = Object.keys(Components);
 
 function chooseComponent(component: string) {
   // not sure how to type this
   // Components is the map of all components
-  // dynamiclly load in each component when they're used
+  // dynamically load in each component when they're used
   // this means you can increase the components export as much as you want
   const Component = Components[component];
+  window.Components = Components;
   console.log('Component', Component);
-  const opt = componentsMap.get(component);
-  if (!Component || !opt) return null;
-  return <Component key={opt.id} {...opt.props} />;
+  if (!Component) return null;
+  return <Component id={componentTokens.indexOf(component)}/>;
 }
 
 function parseText(inputText: string, tokens = componentTokens) {
