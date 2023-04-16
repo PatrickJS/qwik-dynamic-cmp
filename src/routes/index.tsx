@@ -9,12 +9,16 @@ function chooseComponent(component: string) {
   // not sure how to type this
   // Components is the map of all components
   // dynamically load in each component when they're used
-  // this means you can increase the components export as much as you want
+  // this means you can increase the components export
+  // as much as you want without changing the code here
   const Component = Components[component];
+ 
+  // debug
   window.Components = Components;
   console.log('Component', Component);
+
   if (!Component) return null;
-  return <Component id={componentTokens.indexOf(component)}/>;
+  return <Component id={componentTokens.indexOf(component)} /* {...props} */ />;
 }
 
 function parseText(inputText: string, tokens = componentTokens) {
