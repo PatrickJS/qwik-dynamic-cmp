@@ -10,20 +10,19 @@ interface ComponentOptions {
 }
 const componentsMap = new Map<string, ComponentOptions>([
   ['ComponentA', { id: 1, type: 'ComponentA', props: { text: 'Hello A' } }],
-  ['ComponentB', { id: 1, type: 'ComponentB', props: { text: 'Hello A' } }],
+  ['ComponentB', { id: 2, type: 'ComponentB', props: { text: 'Hello A' } }],
 ]);
 
 const componentTokens = Array.from(componentsMap.keys());
-
 
 function chooseComponent(component: string) {
   // not sure how to type this
   // Components is the map of all components
   const Component = Components[component];
-  console.log('Component', Component)
+  console.log('Component', Component);
   const opt = componentsMap.get(component);
   if (!Component || !opt) return null;
-  return <Component key={opt.id} {...opt.props}/>;
+  return <Component key={opt.id} {...opt.props} />;
 }
 
 function parseText(inputText: string, tokens = componentTokens) {
