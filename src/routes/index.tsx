@@ -1,21 +1,27 @@
-import { Component, component$, useSignal, $, JSXNode } from '@builder.io/qwik';
+import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
 // import remote components from importmaps.json
-import * as Components from 'AppComponents/components';
+// import * as Components from '@remotes/AppComponents/components';
+import * as Components from '../components/components';
 const componentTokens = Object.keys(Components);
 
-function chooseComponent(component: string) {
+async function chooseComponent(component: string) {
   // not sure how to type this
   // Components is the map of all components
   // dynamically load in each component when they're used
   // this means you can increase the components export
   // as much as you want without changing the code here
-  const Component = Components[component];
+  //
+  // TODO: replace importMfe with import
+  // importMfe('@remote/AppComponents/components')
+  // workaround qwik not being able to ignore certain imports
+  const Cmps = await importMfe('@remotes/AppComponents/components');
+  const Component = Cmps[component];
  
   // debug
-  window.Components = Components;
-  console.log('Component', Component);
+  (window as any).Cmps = Cmps;
+  // console.log('Component', Component);
 
   if (!Component) return null;
   return <Component id={componentTokens.indexOf(component)} /* {...props} */ />;
@@ -76,4 +82,17 @@ export const head: DocumentHead = {
       content: 'Qwik site description',
     },
   ],
+  // QwikGPT lied to me
+  // scripts: [
+  //   {
+  //     type: 'importmap',
+  //     innerHTML: `
+  //       {
+  //         "imports": {
+  //           "my-module": "/path/to/my-module.js"
+  //         }
+  //       }
+  //     `,
+  //   },
+  // ],
 };

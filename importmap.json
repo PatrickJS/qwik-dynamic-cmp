@@ -1,5 +1,5 @@
 {
   "imports": {
-    "AppComponents/": "https://qwikstarter6gcwhe-c00j-e1q6kcqa--5173--c8358679.local-credentialless.webcontainer.io/src/components/"
+    "@remotes/": "http://127.0.0.1:5173/@remotes/"
   }
 }
