@@ -3,6 +3,7 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 
 // import remote components from importmaps.json
 // import * as Components from '@remotes/AppComponents/components';
+// TODO: using local version because of SSR error
 import * as Components from '../components/components';
 const componentTokens = Object.keys(Components);
 
@@ -16,9 +17,9 @@ async function chooseComponent(component: string) {
   // TODO: replace importMfe with import
   // importMfe('@remote/AppComponents/components')
   // workaround qwik not being able to ignore certain imports
-  const Cmps = await importMfe('@remotes/AppComponents/components');
-  const Component = Cmps[component];
- 
+  let Cmps = await importMfe('@remotes/AppComponents/components');
+  const Component = window.isLocal ? Cmps[component] : Components[component];
+
   // debug
   (window as any).Cmps = Cmps;
   // console.log('Component', Component);

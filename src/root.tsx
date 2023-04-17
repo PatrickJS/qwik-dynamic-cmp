@@ -1,9 +1,14 @@
 import { component$, useTask$ } from '@builder.io/qwik';
-import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister, useDocumentHead } from '@builder.io/qwik-city';
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+  useDocumentHead,
+} from '@builder.io/qwik-city';
 import { RouterHead } from './components/router-head/router-head';
 
 import './global.css';
-import importmap from '../importmap.json'
+import importmap from '../importmap.json';
 
 export default component$(() => {
   /**
@@ -18,9 +23,12 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
-        <script type="importmap" dangerouslySetInnerHTML={JSON.stringify(importmap, null, 2)}></script>
+        <script
+          type="importmap"
+          dangerouslySetInnerHTML={JSON.stringify(importmap, null, 2)}
+        ></script>
         {/* workaround qwik not being able to ignore certain imports  */}
-        <script dangerouslySetInnerHTML="window.importMfe = url => import(url);"></script>
+        <script dangerouslySetInnerHTML="window.importMfe = url => import(url);window.isLocal = !/webcontainer/.test(location.toString())"></script>
         <RouterHead />
       </head>
       <body lang="en">
