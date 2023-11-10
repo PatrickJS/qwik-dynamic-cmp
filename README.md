@@ -6,3 +6,8 @@ Imports to @remotes will grab a remote file (currently in the same repo). We can
 
 Note:
 right now we are using the same server due to limits of qwik. `importmap.json` should be able to point to any domain but Qwik and the Optimizer doesn't correctly read the import maps.
+
+
+## TODO
+
+- [ ] update to latest qwik
