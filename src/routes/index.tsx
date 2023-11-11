@@ -2,7 +2,7 @@ import { component$, useSignal, $ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 
 // import remote components from importmaps.json
-// import * as Components from '@remotes/AppComponents/components';
+// import * as Components from "@remotes/AppComponents/components";
 // TODO: using local version because of SSR error
 // import * as Components from '../components/components';
 
